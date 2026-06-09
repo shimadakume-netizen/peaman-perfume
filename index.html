@@ -130,14 +130,14 @@ nav{
   padding:6rem 2rem 4rem;
   text-align:center;
   overflow:hidden;
+  background:url('bottle.png') center center / cover no-repeat;
 }
 .hero::before{
   content:'';
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(10,36,22,0.0) 0%, rgba(3,14,7,1) 75%),
-    radial-gradient(ellipse 40% 30% at 30% 60%, rgba(125,207,160,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 70% 30%, rgba(125,207,160,0.04) 0%, transparent 60%);
+    linear-gradient(to bottom, rgba(3,14,7,0.45) 0%, rgba(3,14,7,0.75) 60%, rgba(3,14,7,1) 100%),
+    linear-gradient(to right, rgba(3,14,7,0.3) 0%, transparent 30%, transparent 70%, rgba(3,14,7,0.3) 100%);
   pointer-events:none;
 }
 .hero-eyebrow{
@@ -509,11 +509,8 @@ footer{
   <div class="sec-inner">
     <div class="concept-grid">
       <div class="concept-visual reveal">
-        <div class="concept-bottle">
-          <div style="text-align:center;line-height:1.4;">
-            <div style="font-size:3rem;margin-bottom:0.5rem;opacity:0.6;">🫑</div>
-            <div style="font-size:1rem;letter-spacing:0.2em;opacity:0.4;">PĒMAN</div>
-          </div>
+        <div class="concept-bottle" style="background:none;border:none;padding:0;aspect-ratio:auto;">
+          <img src="bottle.png" alt="PĒMAN Eau de Parfum" style="width:100%;height:auto;display:block;border-radius:2px;">
         </div>
         <div class="concept-badge">
           <span>No.</span>

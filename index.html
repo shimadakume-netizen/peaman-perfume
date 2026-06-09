@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PĒMAN — The Green You Never Forgot</title>
+<meta name="description" content="誰も嗅いだことのない、記憶に残る緑。PĒMAN Eau de Parfum — ピーマンから生まれた架空の香水。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET & BASE ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:#030e07;
+  color:#e8f0eb;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  line-height:1.8;
+}
+
+/* ── VARIABLES ── */
+:root{
+  --mint:#b8e0c8;
+  --mint-bright:#7dcfa0;
+  --green-deep:#0a2416;
+  --green-mid:#1a4a2e;
+  --cream:#f0ede6;
+  --gold:#c9a96e;
+  --glass:rgba(255,255,255,0.04);
+  --glass-border:rgba(184,224,200,0.15);
+}
+
+/* ── SCROLL ANIMATION OVERLAY ── */
+.scroll-animation{
+  position:fixed;top:0;left:0;right:0;
+  width:100vw;height:100vh;height:100svh;
+  background:#000;
+  display:flex;align-items:center;justify-content:center;
+  z-index:999;
+  opacity:1;
+  transition:opacity 1.4s ease;
+}
+.scroll-animation.hidden{opacity:0;pointer-events:none;}
+#frameImg{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+@media(max-width:767px){
+  #frameImg{width:100vw;height:100svh;object-fit:cover;}
+}
+
+/* スクロールヒント */
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+  color:rgba(255,255,255,0.65);
+  font-size:0.72rem;font-weight:400;letter-spacing:0.18em;
+  text-transform:uppercase;
+  pointer-events:none;
+  transition:opacity 0.5s ease;
+  animation:hint-float 2s ease-in-out infinite;
+}
+.scroll-hint.hide{opacity:0;}
+.scroll-hint-line{
+  width:1px;height:36px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);
+  animation:line-grow 2s ease-in-out infinite;
+}
+@keyframes hint-float{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(8px);}
+}
+@keyframes line-grow{
+  0%,100%{opacity:0.6;transform:scaleY(1);}
+  50%{opacity:1;transform:scaleY(1.15);}
+}
+
+/* ── FLOATING PARTICLES ── */
+.particle{
+  position:fixed;pointer-events:none;z-index:1;
+  font-size:1rem;opacity:0.06;
+  animation:drift linear infinite;
+}
+.p1{left:5%;animation-duration:18s;animation-delay:0s;font-size:1.2rem;}
+.p2{left:20%;animation-duration:24s;animation-delay:4s;font-size:0.8rem;}
+.p3{left:40%;animation-duration:20s;animation-delay:8s;}
+.p4{left:60%;animation-duration:22s;animation-delay:2s;font-size:1.4rem;}
+.p5{left:75%;animation-duration:19s;animation-delay:6s;font-size:0.7rem;}
+.p6{left:90%;animation-duration:25s;animation-delay:10s;}
+@keyframes drift{
+  0%{top:110%;opacity:0;}
+  10%{opacity:0.06;}
+  90%{opacity:0.04;}
+  100%{top:-10%;opacity:0;}
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  padding:1.2rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(3,14,7,0.9),transparent);
+  backdrop-filter:blur(0px);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:300;letter-spacing:0.25em;
+  color:#e8f0eb;text-decoration:none;
+  text-transform:uppercase;
+}
+.nav-logo span{color:var(--mint-bright);}
+.nav-tagline{
+  font-size:0.65rem;letter-spacing:0.2em;
+  color:rgba(232,240,235,0.4);text-transform:uppercase;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  padding:6rem 2rem 4rem;
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(10,36,22,0.0) 0%, rgba(3,14,7,1) 75%),
+    radial-gradient(ellipse 40% 30% at 30% 60%, rgba(125,207,160,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 70% 30%, rgba(125,207,160,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--mint-bright);margin-bottom:1.5rem;
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,10vw,8rem);
+  font-weight:300;line-height:1;
+  letter-spacing:0.1em;
+  color:#fff;
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.hero-title .accent{
+  font-style:italic;color:var(--mint);
+  display:block;font-size:0.65em;letter-spacing:0.15em;
+}
+.hero-subtitle{
+  font-size:clamp(0.75rem,2vw,0.9rem);
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(232,240,235,0.45);
+  margin-bottom:2.5rem;
+}
+.hero-desc{
+  max-width:480px;margin:0 auto 3rem;
+  font-size:clamp(0.9rem,2vw,1.05rem);
+  color:rgba(232,240,235,0.65);
+  line-height:2;
+}
+.hero-cta{
+  display:inline-block;
+  padding:0.85rem 2.8rem;
+  border:1px solid rgba(184,224,200,0.35);
+  color:var(--mint);
+  font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;
+  text-decoration:none;
+  background:rgba(184,224,200,0.05);
+  backdrop-filter:blur(8px);
+  transition:all 0.4s ease;
+}
+.hero-cta:hover{
+  background:rgba(184,224,200,0.12);
+  border-color:rgba(184,224,200,0.6);
+  color:#fff;
+}
+.hero-scroll-line{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  opacity:0.3;
+}
+.hero-scroll-line::after{
+  content:'';width:1px;height:50px;
+  background:linear-gradient(to bottom,var(--mint-bright),transparent);
+}
+
+/* ── SECTION BASE ── */
+.sec{padding:7rem 2rem;}
+.sec-inner{max-width:1100px;margin:0 auto;}
+.sec-label{
+  font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--mint-bright);margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.sec-label::before{
+  content:'';display:inline-block;width:24px;height:1px;
+  background:var(--mint-bright);
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:300;line-height:1.15;
+  color:#fff;margin-bottom:1.5rem;
+}
+.sec-title em{font-style:italic;color:var(--mint);}
+.sec-body{
+  font-size:clamp(0.9rem,2vw,1rem);
+  color:rgba(232,240,235,0.6);
+  line-height:2.1;max-width:580px;
+}
+
+/* ── CONCEPT ── */
+.concept-sec{
+  background:linear-gradient(160deg,#030e07 0%,#071a0f 60%,#030e07 100%);
+}
+.concept-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+.concept-visual{
+  position:relative;
+}
+.concept-bottle{
+  width:100%;aspect-ratio:3/4;
+  background:linear-gradient(135deg,rgba(125,207,160,0.08) 0%,rgba(10,36,22,0.4) 50%,rgba(125,207,160,0.05) 100%);
+  border:1px solid var(--glass-border);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,4vw,2.5rem);
+  font-style:italic;
+  color:rgba(184,224,200,0.3);
+  letter-spacing:0.1em;
+  backdrop-filter:blur(4px);
+  position:relative;overflow:hidden;
+}
+.concept-bottle::before{
+  content:'';position:absolute;
+  top:-50%;left:-50%;width:200%;height:200%;
+  background:conic-gradient(transparent 0deg,rgba(125,207,160,0.04) 60deg,transparent 120deg);
+  animation:bottle-shine 8s linear infinite;
+}
+@keyframes bottle-shine{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+.concept-badge{
+  position:absolute;bottom:-1rem;right:-1rem;
+  width:80px;height:80px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--green-deep),var(--green-mid));
+  border:1px solid var(--glass-border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--mint);gap:0.15rem;
+}
+.concept-badge strong{font-size:0.9rem;letter-spacing:0;font-weight:400;}
+@media(max-width:767px){
+  .concept-grid{grid-template-columns:1fr;gap:3rem;}
+  .concept-visual{max-width:240px;margin:0 auto;}
+}
+
+/* ── NOTES (香りのピラミッド) ── */
+.notes-sec{
+  background:linear-gradient(to bottom,#030e07,#050f08,#030e07);
+  text-align:center;
+}
+.notes-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  margin-top:4rem;
+}
+.note-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:2px;
+  padding:2.5rem 1.5rem;
+  position:relative;
+  overflow:hidden;
+  transition:transform 0.4s ease,border-color 0.4s ease;
+}
+.note-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--mint-bright),transparent);
+  opacity:0;transition:opacity 0.4s;
+}
+.note-card:hover{transform:translateY(-4px);border-color:rgba(184,224,200,0.3);}
+.note-card:hover::before{opacity:1;}
+.note-layer{
+  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--mint-bright);margin-bottom:1rem;
+}
+.note-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:300;font-style:italic;
+  color:#fff;margin-bottom:1.2rem;
+}
+.note-items{
+  display:flex;flex-direction:column;gap:0.5rem;
+}
+.note-item{
+  font-size:0.8rem;letter-spacing:0.08em;
+  color:rgba(232,240,235,0.55);
+  padding:0.4rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.note-item:last-child{border-bottom:none;}
+.note-item strong{color:var(--mint);font-weight:400;}
+@media(max-width:767px){
+  .notes-grid{grid-template-columns:1fr;max-width:360px;margin:3rem auto 0;}
+}
+
+/* ── STORY ── */
+.story-sec{
+  background:linear-gradient(160deg,#040f08,#071c10 50%,#040f08);
+  position:relative;overflow:hidden;
+}
+.story-sec::before{
+  content:'"';
+  position:absolute;top:-2rem;left:-1rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:20rem;line-height:1;
+  color:rgba(125,207,160,0.025);
+  pointer-events:none;user-select:none;
+}
+.story-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:start;
+}
+.story-pull{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,2rem);
+  font-style:italic;font-weight:300;
+  line-height:1.6;color:rgba(232,240,235,0.85);
+  border-left:1px solid var(--mint-bright);
+  padding-left:2rem;
+  margin-bottom:2rem;
+}
+.story-pull em{color:var(--mint);}
+@media(max-width:767px){
+  .story-grid{grid-template-columns:1fr;gap:3rem;}
+  .story-sec::before{font-size:12rem;}
+}
+
+/* ── FEATURES ── */
+.features-sec{background:#030e07;text-align:center;}
+.features-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1rem;margin-top:4rem;
+}
+.feat-card{
+  padding:2rem 1rem;
+  border-top:1px solid rgba(184,224,200,0.12);
+}
+.feat-icon{font-size:2rem;margin-bottom:1rem;display:block;}
+.feat-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:400;
+  color:#fff;margin-bottom:0.6rem;letter-spacing:0.05em;
+}
+.feat-desc{font-size:0.78rem;color:rgba(232,240,235,0.45);line-height:1.9;}
+@media(max-width:767px){
+  .features-grid{grid-template-columns:repeat(2,1fr);gap:0;}
+}
+
+/* ── CTA ── */
+.cta-sec{
+  background:linear-gradient(160deg,#040f08,#0a2416 50%,#040f08);
+  text-align:center;padding:8rem 2rem;
+  position:relative;overflow:hidden;
+}
+.cta-sec::after{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(125,207,160,0.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-eyebrow{
+  font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--mint-bright);margin-bottom:2rem;
+}
+.cta-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,7vw,5rem);
+  font-weight:300;font-style:italic;
+  color:#fff;line-height:1.1;margin-bottom:1.5rem;
+}
+.cta-title span{display:block;font-style:normal;font-size:0.55em;letter-spacing:0.2em;text-transform:uppercase;color:var(--mint);}
+.cta-body{
+  font-size:0.9rem;color:rgba(232,240,235,0.5);
+  max-width:420px;margin:0 auto 3rem;line-height:2;
+}
+.cta-btn{
+  display:inline-block;
+  padding:1rem 3.5rem;
+  background:linear-gradient(135deg,rgba(125,207,160,0.15),rgba(125,207,160,0.05));
+  border:1px solid rgba(184,224,200,0.4);
+  color:#fff;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.4s ease;
+  position:relative;z-index:1;
+}
+.cta-btn:hover{
+  background:linear-gradient(135deg,rgba(125,207,160,0.25),rgba(125,207,160,0.1));
+  border-color:rgba(184,224,200,0.7);
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(125,207,160,0.1);
+}
+.cta-note{
+  margin-top:1.5rem;font-size:0.68rem;
+  color:rgba(232,240,235,0.25);letter-spacing:0.08em;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:#020b05;
+  padding:3rem 2rem;text-align:center;
+  border-top:1px solid rgba(184,224,200,0.06);
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:rgba(232,240,235,0.4);margin-bottom:0.5rem;
+}
+.footer-copy{
+  font-size:0.65rem;letter-spacing:0.1em;
+  color:rgba(232,240,235,0.18);
+}
+
+/* ── FADE-IN ON SCROLL ── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.9s ease,transform 0.9s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.12s;}
+.reveal-delay-2{transition-delay:0.24s;}
+.reveal-delay-3{transition-delay:0.36s;}
+.reveal-delay-4{transition-delay:0.48s;}
+
+/* ── DIVIDER ── */
+.divider{
+  width:40px;height:1px;
+  background:linear-gradient(to right,transparent,var(--mint-bright),transparent);
+  margin:2rem auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ======== SCROLL ANIMATION OVERLAY ======== -->
+<div class="scroll-animation" id="frameAnimation">
+  <img id="frameImg" src="frames/frame_0001.jpg" alt="">
+  <div class="scroll-hint" id="scrollHint">
+    <span>下にスクロール</span>
+    <span class="scroll-hint-line"></span>
+  </div>
+</div>
+
+<!-- 浮遊パーティクル -->
+<span class="particle p1">🫑</span>
+<span class="particle p2">✦</span>
+<span class="particle p3">🌿</span>
+<span class="particle p4">✦</span>
+<span class="particle p5">🫑</span>
+<span class="particle p6">✦</span>
+
+<!-- ======== NAV ======== -->
+<nav>
+  <a class="nav-logo" href="#">PĒ<span>MAN</span></a>
+  <div class="nav-tagline">Eau de Parfum</div>
+</nav>
+
+<!-- ======== HERO ======== -->
+<section class="hero">
+  <div style="position:relative;z-index:2;">
+    <div class="hero-eyebrow reveal">Eau de Parfum — 2025 Collection</div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      PĒMAN
+      <span class="accent">the green</span>
+    </h1>
+    <div class="hero-subtitle reveal reveal-delay-2">You Never Forgot</div>
+    <p class="hero-desc reveal reveal-delay-3">
+      ピーマンの青さ、ミントの冷気、そして深い森の静けさ。<br>
+      あなたの記憶に刻まれる、まったく新しい緑の香り。
+    </p>
+    <a class="hero-cta reveal reveal-delay-4" href="#story">香りを探る</a>
+  </div>
+  <div class="hero-scroll-line"></div>
+</section>
+
+<!-- ======== CONCEPT ======== -->
+<section class="sec concept-sec" id="concept">
+  <div class="sec-inner">
+    <div class="concept-grid">
+      <div class="concept-visual reveal">
+        <div class="concept-bottle">
+          <div style="text-align:center;line-height:1.4;">
+            <div style="font-size:3rem;margin-bottom:0.5rem;opacity:0.6;">🫑</div>
+            <div style="font-size:1rem;letter-spacing:0.2em;opacity:0.4;">PĒMAN</div>
+          </div>
+        </div>
+        <div class="concept-badge">
+          <span>No.</span>
+          <strong>01</strong>
+          <span>2025</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-label reveal">Concept</div>
+        <h2 class="sec-title reveal reveal-delay-1">
+          誰も嗅いだことのない、<br><em>記憶に残る緑</em>
+        </h2>
+        <p class="sec-body reveal reveal-delay-2">
+          野菜売り場に漂う独特の青い香り——誰もが知っているのに、誰も香水にしなかった香り。
+          PĒMANはその禁断の一歩を踏み出し、ピーマンの葉をベースに、
+          ミント・ベルガモット・ホワイトティーを重ね、
+          唯一無二のフレッシュグリーンを生み出しました。
+        </p>
+        <div class="divider" style="margin:2rem 0;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;" class="reveal reveal-delay-3">
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mint-bright);margin-bottom:0.3rem;">Volume</div>
+            <div style="font-size:0.95rem;color:rgba(232,240,235,0.7);">50 ml / 100 ml</div>
+          </div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mint-bright);margin-bottom:0.3rem;">Concentration</div>
+            <div style="font-size:0.95rem;color:rgba(232,240,235,0.7);">Eau de Parfum</div>
+          </div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mint-bright);margin-bottom:0.3rem;">Origin</div>
+            <div style="font-size:0.95rem;color:rgba(232,240,235,0.7);">Japan — 2025</div>
+          </div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mint-bright);margin-bottom:0.3rem;">Season</div>
+            <div style="font-size:0.95rem;color:rgba(232,240,235,0.7);">All year</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== NOTES ======== -->
+<section class="sec notes-sec" id="notes">
+  <div class="sec-inner">
+    <div class="sec-label reveal" style="justify-content:center;">Fragrance Notes</div>
+    <h2 class="sec-title reveal reveal-delay-1" style="text-align:center;">香りのピラミッド</h2>
+    <p class="sec-body reveal reveal-delay-2" style="margin:0 auto;text-align:center;">
+      三層の香りが時間とともに変化し、肌の上で唯一の物語を紡ぎます。
+    </p>
+
+    <div class="notes-grid">
+      <div class="note-card reveal">
+        <div class="note-layer">Top Notes — トップ</div>
+        <div class="note-name">Fresh Opening</div>
+        <div class="note-items">
+          <div class="note-item"><strong>グリーンペッパーリーフ</strong></div>
+          <div class="note-item">スペアミント</div>
+          <div class="note-item">ベルガモット</div>
+          <div class="note-item">シトラスゼスト</div>
+        </div>
+      </div>
+
+      <div class="note-card reveal reveal-delay-1">
+        <div class="note-layer">Heart Notes — ハート</div>
+        <div class="note-name">Green Heart</div>
+        <div class="note-items">
+          <div class="note-item"><strong>バイオレットリーフ</strong></div>
+          <div class="note-item">キューカンバー</div>
+          <div class="note-item">ホワイトティー</div>
+          <div class="note-item">ウォーターリリー</div>
+        </div>
+      </div>
+
+      <div class="note-card reveal reveal-delay-2">
+        <div class="note-layer">Base Notes — ベース</div>
+        <div class="note-name">Deep Forest</div>
+        <div class="note-items">
+          <div class="note-item"><strong>ベチバー</strong></div>
+          <div class="note-item">シダーウッド</div>
+          <div class="note-item">ホワイトムスク</div>
+          <div class="note-item">アンバーグリス</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== STORY ======== -->
+<section class="sec story-sec" id="story">
+  <div class="sec-inner">
+    <div class="story-grid">
+      <div>
+        <div class="sec-label reveal">Brand Story</div>
+        <h2 class="sec-title reveal reveal-delay-1">
+          嫌いだった緑が、<br><em>好きになる瞬間</em>
+        </h2>
+        <div class="story-pull reveal reveal-delay-2">
+          「子供のころ、ピーマンが<em>嫌いだった</em>。<br>
+          でも、あの匂いだけは、ずっと好きだった。」
+        </div>
+      </div>
+      <div>
+        <p class="sec-body reveal" style="margin-bottom:1.5rem;">
+          PĒMANは、ある調香師の記憶から生まれました。母親の台所に漂う、炒める前のピーマンの青い香り。
+          苦手なはずなのに、どこか懐かしくて、目が覚めるような。
+        </p>
+        <p class="sec-body reveal reveal-delay-1" style="margin-bottom:1.5rem;">
+          その矛盾した感覚——クールで、でも温かくて、少し懐かしい——をボトルに閉じ込めました。
+          男性にも女性にも、記憶の奥底に眠る「緑の感覚」を呼び覚ます香水。
+        </p>
+        <p class="sec-body reveal reveal-delay-2">
+          一度嗅いだら、きっと忘れられない。<br>それがPĒMANの約束です。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FEATURES ======== -->
+<section class="sec features-sec">
+  <div class="sec-inner">
+    <div class="sec-label reveal" style="justify-content:center;">Why PĒMAN</div>
+    <h2 class="sec-title reveal reveal-delay-1" style="text-align:center;">こだわりの<em>4つの理由</em></h2>
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <span class="feat-icon">🧪</span>
+        <div class="feat-title">天然グリーンノート</div>
+        <div class="feat-desc">ピーマンリーフの精油を独自製法で抽出。合成香料に頼らない、リアルな緑の香り。</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <span class="feat-icon">⏱</span>
+        <div class="feat-title">8時間持続</div>
+        <div class="feat-desc">EDP濃度で肌に深く馴染み、トップからベースまで8時間かけてゆっくり変化。</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <span class="feat-icon">🌿</span>
+        <div class="feat-title">クルエルティフリー</div>
+        <div class="feat-desc">全成分を植物由来・合成ムスクで構成。動物由来原料は一切使用しません。</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <span class="feat-icon">♻️</span>
+        <div class="feat-title">エコボトル</div>
+        <div class="feat-desc">詰め替え対応のリフィラブル設計。ボトルは再生ガラス製で、環境への配慮も。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== CTA ======== -->
+<section class="cta-sec" id="cta">
+  <div class="sec-inner" style="position:relative;z-index:1;">
+    <div class="cta-eyebrow reveal">Limited Edition 2025</div>
+    <h2 class="cta-title reveal reveal-delay-1">
+      <span>あなたの香りになる</span>
+      The Green<br>You Never Forgot
+    </h2>
+    <p class="cta-body reveal reveal-delay-2">
+      全世界500本限定。一度だけ作られる、この香り。<br>
+      あなたの記憶に刻まれる緑を、今すぐ手に入れてください。
+    </p>
+    <a class="cta-btn reveal reveal-delay-3" href="#">Purchase Now — ¥18,000</a>
+    <div class="cta-note reveal reveal-delay-4">※ こちらはポートフォリオ用の架空プロダクトです</div>
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<footer>
+  <div class="footer-logo">PĒMAN</div>
+  <div class="footer-copy">© 2025 PĒMAN Parfums — Fictional product for portfolio use</div>
+</footer>
+
+<script>
+// ── スクロールアニメーション ──
+document.addEventListener('DOMContentLoaded', function() {
+  const frameAnimation  = document.getElementById('frameAnimation');
+  const frameImg        = document.getElementById('frameImg');
+  const scrollHint      = document.getElementById('scrollHint');
+  const totalFrames     = 97;
+  const animationHeight = window.innerHeight * 3;
+
+  // 全フレームをプリロード
+  const preloaded = [];
+  for (let i = 1; i <= totalFrames; i++) {
+    const img = new Image();
+    img.src = `frames/frame_${String(i).padStart(4, '0')}.jpg`;
+    preloaded.push(img);
+  }
+
+  let currentFrame      = 1;
+  let animationComplete = false;
+  let jumping           = false;
+
+  window.addEventListener('scroll', function() {
+    if (jumping) return;
+    const scrolled = window.scrollY;
+
+    // スクロール開始でヒント非表示
+    scrollHint.classList.toggle('hide', scrolled > 20);
+
+    // フレーム更新
+    if (scrolled < animationHeight && !animationComplete) {
+      const progress    = scrolled / animationHeight;
+      const frameNumber = Math.min(Math.floor(progress * (totalFrames - 1)) + 1, totalFrames);
+      if (frameNumber !== currentFrame) {
+        currentFrame = frameNumber;
+        frameImg.src = preloaded[currentFrame - 1].src;
+      }
+    }
+
+    // アニメーション終了 → トップへ戻してからじわっとフェード
+    if (scrolled >= animationHeight && !animationComplete) {
+      animationComplete = true;
+      jumping           = true;
+
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop            = 0;
+      window.scrollTo(0, 0);
+
+      requestAnimationFrame(function() {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop            = 0;
+        requestAnimationFrame(function() {
+          frameAnimation.classList.add('hidden');
+          setTimeout(function() { jumping = false; }, 900);
+        });
+      });
+    }
+  });
+
+  // ── スクロール時フェードイン ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(function(el) { observer.observe(el); });
+});
+</script>
+</body>
+</html>

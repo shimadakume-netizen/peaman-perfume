@@ -60,9 +60,10 @@ body{
   position:absolute;bottom:2.5rem;left:50%;
   transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:0.4rem;
-  color:rgba(255,255,255,0.65);
-  font-size:0.72rem;font-weight:400;letter-spacing:0.18em;
+  color:#fff;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.18em;
   text-transform:uppercase;
+  text-shadow:0 1px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.5);
   pointer-events:none;
   transition:opacity 0.5s ease;
   animation:hint-float 2s ease-in-out infinite;
@@ -70,7 +71,8 @@ body{
 .scroll-hint.hide{opacity:0;}
 .scroll-hint-line{
   width:1px;height:36px;
-  background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);
+  background:linear-gradient(to bottom,rgba(255,255,255,0.9),transparent);
+  filter:drop-shadow(0 0 4px rgba(0,0,0,0.5));
   animation:line-grow 2s ease-in-out infinite;
 }
 @keyframes hint-float{
@@ -78,7 +80,7 @@ body{
   50%{transform:translateX(-50%) translateY(8px);}
 }
 @keyframes line-grow{
-  0%,100%{opacity:0.6;transform:scaleY(1);}
+  0%,100%{opacity:0.7;transform:scaleY(1);}
   50%{opacity:1;transform:scaleY(1.15);}
 }
 
@@ -130,7 +132,7 @@ nav{
   padding:6rem 2rem 4rem;
   text-align:center;
   overflow:hidden;
-  background:url('bottle.png') center center / cover no-repeat;
+  background:url('frames/frame_0001.jpg') center center / cover no-repeat;
 }
 .hero::before{
   content:'';

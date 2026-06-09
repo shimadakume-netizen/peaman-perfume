@@ -279,50 +279,94 @@ nav{
   background:linear-gradient(to bottom,#030e07,#050f08,#030e07);
   text-align:center;
 }
-.notes-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.5rem;
-  margin-top:4rem;
+/* ピラミッド全体ラッパー */
+.pyr-wrap{
+  position:relative;
+  max-width:760px;
+  margin:4rem auto 0;
 }
-.note-card{
-  background:var(--glass);
-  border:1px solid var(--glass-border);
-  border-radius:2px;
-  padding:2.5rem 1.5rem;
+/* SVG三角アウトライン */
+.pyr-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;overflow:visible;
+}
+/* 各ティア */
+.pyr-tiers{
+  display:flex;flex-direction:column;align-items:center;
+  gap:0;
+  position:relative;z-index:1;
+}
+.pyr-tier{
+  display:flex;align-items:center;
+  gap:0;
+  border:1px solid rgba(184,224,200,0.18);
   position:relative;
   overflow:hidden;
-  transition:transform 0.4s ease,border-color 0.4s ease;
+  transition:border-color 0.4s;
 }
-.note-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(to right,transparent,var(--mint-bright),transparent);
-  opacity:0;transition:opacity 0.4s;
+.pyr-tier:hover{border-color:rgba(184,224,200,0.38);}
+.pyr-tier::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(184,224,200,0.3),transparent);
 }
-.note-card:hover{transform:translateY(-4px);border-color:rgba(184,224,200,0.3);}
-.note-card:hover::before{opacity:1;}
-.note-layer{
-  font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--mint-bright);margin-bottom:1rem;
+.pyr-t1{ width:36%; background:rgba(125,207,160,0.06); }
+.pyr-t2{ width:63%; background:rgba(125,207,160,0.04); }
+.pyr-t3{ width:90%; background:rgba(125,207,160,0.025); }
+
+/* ティア内レイアウト */
+.pyr-side{
+  width:3px;
+  align-self:stretch;
+  flex-shrink:0;
 }
-.note-name{
+.pyr-t1 .pyr-side{ background:linear-gradient(to bottom,var(--mint-bright),rgba(125,207,160,0.3)); }
+.pyr-t2 .pyr-side{ background:linear-gradient(to bottom,rgba(125,207,160,0.6),rgba(125,207,160,0.2)); }
+.pyr-t3 .pyr-side{ background:linear-gradient(to bottom,rgba(125,207,160,0.3),rgba(125,207,160,0.1)); }
+
+.pyr-content{
+  flex:1;padding:1.6rem 1.8rem;text-align:left;
+}
+.pyr-layer{
+  font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--mint-bright);margin-bottom:0.4rem;
+}
+.pyr-name{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.4rem;font-weight:300;font-style:italic;
-  color:#fff;margin-bottom:1.2rem;
+  font-size:1.15rem;font-weight:300;font-style:italic;
+  color:#fff;margin-bottom:0.8rem;
 }
-.note-items{
-  display:flex;flex-direction:column;gap:0.5rem;
+.pyr-pills{
+  display:flex;flex-wrap:wrap;gap:0.4rem;
 }
-.note-item{
-  font-size:0.8rem;letter-spacing:0.08em;
-  color:rgba(232,240,235,0.55);
-  padding:0.4rem 0;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+.pyr-pill{
+  font-size:0.72rem;letter-spacing:0.05em;
+  color:rgba(232,240,235,0.6);
+  padding:0.22rem 0.65rem;
+  border:1px solid rgba(184,224,200,0.12);
+  border-radius:20px;
+  background:rgba(255,255,255,0.02);
 }
-.note-item:last-child{border-bottom:none;}
-.note-item strong{color:var(--mint);font-weight:400;}
+.pyr-pill.key{
+  color:var(--mint);
+  border-color:rgba(184,224,200,0.3);
+  background:rgba(125,207,160,0.06);
+}
+/* ティア番号バッジ */
+.pyr-num{
+  position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;font-weight:300;
+  color:rgba(184,224,200,0.06);
+  letter-spacing:-0.02em;
+  pointer-events:none;user-select:none;
+}
+
 @media(max-width:767px){
-  .notes-grid{grid-template-columns:1fr;max-width:360px;margin:3rem auto 0;}
+  .pyr-t1{ width:80%; }
+  .pyr-t2{ width:90%; }
+  .pyr-t3{ width:100%; }
+  .pyr-svg{ display:none; }
 }
 
 /* ── STORY ── */
@@ -565,37 +609,66 @@ footer{
       三層の香りが時間とともに変化し、肌の上で唯一の物語を紡ぎます。
     </p>
 
-    <div class="notes-grid">
-      <div class="note-card reveal">
-        <div class="note-layer">Top Notes — トップ</div>
-        <div class="note-name">Fresh Opening</div>
-        <div class="note-items">
-          <div class="note-item"><strong>グリーンペッパーリーフ</strong></div>
-          <div class="note-item">スペアミント</div>
-          <div class="note-item">ベルガモット</div>
-          <div class="note-item">シトラスゼスト</div>
-        </div>
-      </div>
+    <div class="pyr-wrap reveal">
+      <!-- SVG ピラミッドアウトライン -->
+      <svg class="pyr-svg" viewBox="0 0 760 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="380,4 756,256 4,256"
+          fill="none"
+          stroke="rgba(184,224,200,0.1)"
+          stroke-width="1"
+          stroke-dasharray="6 4"/>
+      </svg>
 
-      <div class="note-card reveal reveal-delay-1">
-        <div class="note-layer">Heart Notes — ハート</div>
-        <div class="note-name">Green Heart</div>
-        <div class="note-items">
-          <div class="note-item"><strong>バイオレットリーフ</strong></div>
-          <div class="note-item">キューカンバー</div>
-          <div class="note-item">ホワイトティー</div>
-          <div class="note-item">ウォーターリリー</div>
+      <div class="pyr-tiers">
+        <!-- TOP -->
+        <div class="pyr-tier pyr-t1">
+          <div class="pyr-side"></div>
+          <div class="pyr-content">
+            <div class="pyr-layer">Top Notes — トップ</div>
+            <div class="pyr-name">Fresh Opening</div>
+            <div class="pyr-pills">
+              <span class="pyr-pill key">グリーンペッパーリーフ</span>
+              <span class="pyr-pill">スペアミント</span>
+              <span class="pyr-pill">ベルガモット</span>
+              <span class="pyr-pill">シトラスゼスト</span>
+            </div>
+          </div>
+          <div class="pyr-num">01</div>
+          <div class="pyr-side"></div>
         </div>
-      </div>
 
-      <div class="note-card reveal reveal-delay-2">
-        <div class="note-layer">Base Notes — ベース</div>
-        <div class="note-name">Deep Forest</div>
-        <div class="note-items">
-          <div class="note-item"><strong>ベチバー</strong></div>
-          <div class="note-item">シダーウッド</div>
-          <div class="note-item">ホワイトムスク</div>
-          <div class="note-item">アンバーグリス</div>
+        <!-- HEART -->
+        <div class="pyr-tier pyr-t2">
+          <div class="pyr-side"></div>
+          <div class="pyr-content">
+            <div class="pyr-layer">Heart Notes — ハート</div>
+            <div class="pyr-name">Green Heart</div>
+            <div class="pyr-pills">
+              <span class="pyr-pill key">バイオレットリーフ</span>
+              <span class="pyr-pill">キューカンバー</span>
+              <span class="pyr-pill">ホワイトティー</span>
+              <span class="pyr-pill">ウォーターリリー</span>
+            </div>
+          </div>
+          <div class="pyr-num">02</div>
+          <div class="pyr-side"></div>
+        </div>
+
+        <!-- BASE -->
+        <div class="pyr-tier pyr-t3">
+          <div class="pyr-side"></div>
+          <div class="pyr-content">
+            <div class="pyr-layer">Base Notes — ベース</div>
+            <div class="pyr-name">Deep Forest</div>
+            <div class="pyr-pills">
+              <span class="pyr-pill key">ベチバー</span>
+              <span class="pyr-pill">シダーウッド</span>
+              <span class="pyr-pill">ホワイトムスク</span>
+              <span class="pyr-pill">アンバーグリス</span>
+            </div>
+          </div>
+          <div class="pyr-num">03</div>
+          <div class="pyr-side"></div>
         </div>
       </div>
     </div>
